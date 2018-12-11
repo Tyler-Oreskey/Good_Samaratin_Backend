@@ -1,0 +1,17 @@
+sh: knex seed:make 001_tablename
+exports.seed = function(knex, Promise) {
+	//Deletes ALL existing entries
+	return knex(`tablename`).del()
+		.then(function() {
+			// Inserts seed entries
+			return knex(`table name`).insert([
+				{id:1, colname1: ``, colname2: ``, colname3: ``},
+				{id:2, colname1: ``, colname2: ``, colname3: ``},
+				{id:3, colname1: ``, colname2: ``, colname3: ``},
+			]}
+			.then(function() {
+				 Moves id column (PK) auto-incremented to correct value after inserts
+				return knex.raw(`SELECT setval(`tablename_id_seq`, (SELECT MAX(id) FROM tablename))`)
+			})
+		})
+}

@@ -1,0 +1,14 @@
+sh: knex migrate:make table name to make migration file for a db table
+exports.up = function(knex, Promise) {
+	return knex.schema.createTable(`tablename`, function(table) {
+		// TABLE COLUMN DEFINITIONS HERE
+		table.increments()
+		table.string(`colname1`, 255).notNullable().defaultTo(``)
+		table.string(`colname2`, 255).notNullable().defaultTo(``)
+		table.string(`colname3`, 255).notNullable().defaultTo(``)
+		table.timestamps(true, true)
+	})
+}
+exports.down = function(knex, Promise) {
+	return knex.schema.dropTableIfExists(`tablename`)
+}
