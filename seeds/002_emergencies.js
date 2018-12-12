@@ -14,11 +14,10 @@ exports.seed = function(knex, Promise) {
         {id: 7, emergency_name: '7', emergency_type: ''},
         {id: 8, emergency_name: '8', emergency_type: ''},
         {id: 9, emergency_name: '9', emergency_type: ''},
-
       ]);
-      .then(function() {
-         //Moves id column (PK) auto-incremented to correct value after inserts
-        return knex.raw(`SELECT setval(`emergencies_id_seq`, (SELECT MAX(id) FROM emergencies))`)
-      })
-    });
+    })
+    .then(function() {
+       //Moves id column (PK) auto-incremented to correct value after inserts
+      return knex.raw(`SELECT setval('emergencies_id_seq', (SELECT MAX(id) FROM emergencies))`)
+    })
 };

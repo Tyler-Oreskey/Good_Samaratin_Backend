@@ -4,7 +4,7 @@ exports.up = function (knex, Promise) {
         table.increments('id').primary()
         table.varchar('emergency_id').notNullable()
         table.varchar('steps_id', 255).notNullable()
-        table.int(sort())
+        //table.int('sort')
         table.timestamps(true, true)
     })
 }

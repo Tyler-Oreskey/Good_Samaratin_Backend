@@ -9,9 +9,10 @@ exports.seed = function(knex, Promise) {
         {id: 2, key: '', step: ''}
 
       ]);
+
+      })
       .then(function() {
          //Moves id column (PK) auto-incremented to correct value after inserts
-        return knex.raw(`SELECT setval(`steps_id_seq`, (SELECT MAX(id) FROM steps))`)
-      })
+        return knex.raw(`SELECT setval('steps_id_seq', (SELECT MAX(id) FROM steps))`)
     });
 };
