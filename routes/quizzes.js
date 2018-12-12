@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const knex = require('../knex')
+const Joi = require('joi')
 
 /* Validates the user's ID */
 const validateUserID = (req, res, next) => {
@@ -14,6 +15,64 @@ const validateUserID = (req, res, next) => {
     }
     next()
   })
+}
+
+/* Uses joi to validate data types */
+const validatePostBody = (req, res, next) => {
+  const postSchema = Joi.object().keys({
+    question: Joi.string().required(),
+    correct_answer: Joi.string().required(),
+    wrong_answer_one: Joi.string().required(),
+    wrong_answer_two: Joi.string().required(),
+    wrong_answer_three: Joi.string().required(),
+    description: Joi.string().required(),
+    type: Joi.string()
+  })
+
+  const { error } = Joi.validate(req.body, postSchema)
+
+  if (error) {
+    return res.status(400).json({ "POST Schema Error": { message: error.details[0].message } })
+  }
+  next()
+}
+
+/* Uses joi to build a patch request */
+const buildPatchReq = (req, res, next) => {
+  const patchSchema = Joi.object().keys({
+    question: Joi.string().required(),
+    correct_answer: Joi.string().required(),
+    wrong_answer_one: Joi.string().required(),
+    wrong_answer_two: Joi.string().required(),
+    wrong_answer_three: Joi.string().required(),
+    description: Joi.string().required(),
+    type: Joi.string()
+  })
+
+  const { error } = Joi.validate(req.body, patchSchema)
+  if (error) {
+    return res.status(400).json({ "PATCH Schema Error": { message: error.details[0].message } })
+  }
+
+  const allowedPatchKeys = [question, correct_answer, wrong_answer_one. wrong_answer_two, wrong_answer_three, description, type]
+
+  // Constructs the patch request object
+  let patchReq = {}
+  allowedPatchKeys.forEach(key => {
+    if (req.body.hasOwnProperty(key)) { patchReq[key] = req.body[key] }
+  })
+
+  // If the patch request is empty or has invalid key names, return an error
+  if (Object.keys(patchReq).length === 0) {
+    return res.status(400).json({ error: { message: `Empty or invalid patch request` } })
+  }
+
+  // Every patch update will create a new 'updated_at' timestamp
+  patchReq.updated_at = new Date()
+
+  // Stores the patch request-object into next request
+  req.patchReq = patchReq
+  next()
 }
 
 /* GET all quizzes record */
