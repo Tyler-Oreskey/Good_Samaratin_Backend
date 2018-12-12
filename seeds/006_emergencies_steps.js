@@ -5,9 +5,7 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('emergencies_steps').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
+        {id: 1, emergency_id: 'yeeeeet', steps_id: 'yeeet'},
       ]);
       .then(function() {
          //Moves id column (PK) auto-incremented to correct value after inserts
