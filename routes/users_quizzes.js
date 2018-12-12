@@ -16,24 +16,24 @@ const validateUserID = (req, res, next) => {
   })
 }
 
-/* GET all goal/task record */
+/* GET all users_quizzes record */
 router.get('/', (req, res, next) => {
   knex('users_quizzes').then(data => res.status(200).json(data)).catch(err => next(err))
 })
 
-/* GET single goal/task record */
+/* GET single users_quizzes record */
 router.get('/:id', validateUserID, (req, res, next) => {
   knex('users_quizzes').where('id', req.params.id).then(([data]) => res.status(200).json(data)).catch(err => next(err))
 })
 
-/* POST new goal/task record */
+/* POST new users_quizzes record */
 router.post('/', validatePostBody, (req, res, next) => {
-  const {goal_id, task_id} = req.body
+  const {id, user_id, quiz_id} = req.body
 
-  knex('users_quizzes').insert({goal_id, task_id}).returning('*').then(([data]) => res.status(201).json(data)).catch(err => next(err))
+  knex('users_quizzes').insert({id, user_id, quiz_id}).returning('*').then(([data]) => res.status(201).json(data)).catch(err => next(err))
 })
 
-/* PATCH specified goal/task record */
+/* PATCH specified users_quizzes record */
 router.patch('/:id', validateUserID, buildPatchReq, (req, res, next) => {
   const {patchReq} = req
 
@@ -42,7 +42,7 @@ router.patch('/:id', validateUserID, buildPatchReq, (req, res, next) => {
   }).catch(err => next(err))
 })
 
-/* DELETE specified monsters record */
+/* DELETE specified users_quizzes record */
 router.delete('/:id', validateUserID, (req, res, next) => {
   knex('users_quizzes').where('id', req.params.id).first().del().returning('*').then(([data]) => {
     console.log('deleted', data)

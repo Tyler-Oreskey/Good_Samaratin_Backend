@@ -16,24 +16,24 @@ const validateUserID = (req, res, next) => {
   })
 }
 
-/* GET all goal/task record */
+/* GET all emergencies record */
 router.get('/', (req, res, next) => {
   knex('emergencies').then(data => res.status(200).json(data)).catch(err => next(err))
 })
 
-/* GET single goal/task record */
+/* GET single emergencies record */
 router.get('/:id', validateUserID, (req, res, next) => {
   knex('emergencies').where('id', req.params.id).then(([data]) => res.status(200).json(data)).catch(err => next(err))
 })
 
-/* POST new goal/task record */
+/* POST new emergencies record */
 router.post('/', validatePostBody, (req, res, next) => {
-  const {goal_id, task_id} = req.body
+  const {id, emergency_name, emergency_type} = req.body
 
-  knex('emergencies').insert({goal_id, task_id}).returning('*').then(([data]) => res.status(201).json(data)).catch(err => next(err))
+  knex('emergencies').insert({id, emergency_name, emergency_type}).returning('*').then(([data]) => res.status(201).json(data)).catch(err => next(err))
 })
 
-/* PATCH specified goal/task record */
+/* PATCH specified emergencies record */
 router.patch('/:id', validateUserID, buildPatchReq, (req, res, next) => {
   const {patchReq} = req
 
@@ -42,7 +42,7 @@ router.patch('/:id', validateUserID, buildPatchReq, (req, res, next) => {
   }).catch(err => next(err))
 })
 
-/* DELETE specified monsters record */
+/* DELETE specified emergencies record */
 router.delete('/:id', validateUserID, (req, res, next) => {
   knex('emergencies').where('id', req.params.id).first().del().returning('*').then(([data]) => {
     console.log('deleted', data)
