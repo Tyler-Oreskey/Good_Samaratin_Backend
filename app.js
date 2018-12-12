@@ -4,8 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var tablenameRouter = require(`./routes/tablename`)
 var indexRouter = require('./routes/index');
+var emergencies_stepsRouter = require('./routes/users');
+var emergenciesRouter = require('./routes/users');
+var quizzesRouter = require('./routes/users');
+var stepsRouter = require('./routes/users');
+var users_quizzesRouter = require('./routes/users');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -19,7 +23,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(`/`, tablenameRouter)
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
@@ -28,7 +31,13 @@ app.use(function (req, res, next) {
   next()
 })
 
+//application routes
 app.use('/', indexRouter);
+app.use('/emergencies_steps', emergencies_stepsRouter);
+app.use('/emergencies', emergenciesRouter);
+app.use('/quizzes', quizzesRouter);
+app.use('/steps', stepsRouter);
+app.use('/users_quizzes', users_quizzesRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
