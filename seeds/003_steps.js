@@ -5,8 +5,8 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('steps').insert([
-        {id: 1, key: '', step: ''},
-        {id: 2, key: '', step: ''}
+        {id: 1, key: 'pulse', step: 'Put hand on wrist'},
+        {id: 2, key: 'bleeding', step: 'Apply pressure'}
 
       ]);
 

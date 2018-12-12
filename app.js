@@ -5,11 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var emergencies_stepsRouter = require('./routes/users');
-var emergenciesRouter = require('./routes/users');
-var quizzesRouter = require('./routes/users');
-var stepsRouter = require('./routes/users');
-var users_quizzesRouter = require('./routes/users');
+var emergencies_stepsRouter = require('./routes/emergencies_steps');
+var emergenciesRouter = require('./routes/emergencies');
+var quizzesRouter = require('./routes/quizzes');
+var stepsRouter = require('./routes/steps');
+var users_quizzesRouter = require('./routes/users_quizzes');
 var usersRouter = require('./routes/users');
 
 var app = express();

@@ -5,15 +5,15 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('emergencies').insert([
-        {id: 1, emergency_name: '1', emergency_type: ''},
-        {id: 2, emergency_name: '2', emergency_type: ''},
-        {id: 3, emergency_name: '3', emergency_type: ''},
-        {id: 4, emergency_name: '4', emergency_type: ''},
-        {id: 5, emergency_name: '5', emergency_type: ''},
-        {id: 6, emergency_name: '6', emergency_type: ''},
-        {id: 7, emergency_name: '7', emergency_type: ''},
-        {id: 8, emergency_name: '8', emergency_type: ''},
-        {id: 9, emergency_name: '9', emergency_type: ''},
+        {id: 1, emergency_name: 'Burning', emergency_type: 'Fire'},
+        {id: 2, emergency_name: 'Snake Bite', emergency_type: 'Poison'},
+        {id: 3, emergency_name: 'Cut', emergency_type: 'Injury'},
+        {id: 4, emergency_name: 'First Degree Burn ', emergency_type: 'Fire'},
+        {id: 5, emergency_name: 'Unresponsive', emergency_type: 'Injury'},
+        {id: 6, emergency_name: 'Choking', emergency_type: 'Injury'},
+        {id: 7, emergency_name: 'Bear Mauling', emergency_type: 'Injury'},
+        {id: 8, emergency_name: 'Car Accident', emergency_type: 'Injury'},
+        {id: 9, emergency_name: 'Radiation', emergency_type: 'Poison'},
       ]);
     })
     .then(function() {
