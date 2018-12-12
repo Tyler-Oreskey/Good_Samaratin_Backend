@@ -4,7 +4,7 @@ const knex = require('../knex')
 
 /* Validates the user's ID */
 const validateUserID = (req, res, next) => {
-  knex('procedures').where('id', req.params.id).then(([data]) => {
+  knex('steps').where('id', req.params.id).then(([data]) => {
     if (!data) {
       return res.status(400).json({
         error: {
@@ -16,35 +16,35 @@ const validateUserID = (req, res, next) => {
   })
 }
 
-/* GET all goal/task record */
+/* GET all steps record */
 router.get('/', (req, res, next) => {
-  knex('procedures').then(data => res.status(200).json(data)).catch(err => next(err))
+  knex('steps').then(data => res.status(200).json(data)).catch(err => next(err))
 })
 
-/* GET single goal/task record */
+/* GET single steps record */
 router.get('/:id', validateUserID, (req, res, next) => {
-  knex('procedures').where('id', req.params.id).then(([data]) => res.status(200).json(data)).catch(err => next(err))
+  knex('steps').where('id', req.params.id).then(([data]) => res.status(200).json(data)).catch(err => next(err))
 })
 
-/* POST new goal/task record */
+/* POST new steps record */
 router.post('/', validatePostBody, (req, res, next) => {
-  const {goal_id, task_id} = req.body
+  const {id, key, step} = req.body
 
-  knex('procedures').insert({goal_id, task_id}).returning('*').then(([data]) => res.status(201).json(data)).catch(err => next(err))
+  knex('steps').insert({id, key, step}).returning('*').then(([data]) => res.status(201).json(data)).catch(err => next(err))
 })
 
-/* PATCH specified goal/task record */
+/* PATCH specified steps record */
 router.patch('/:id', validateUserID, buildPatchReq, (req, res, next) => {
   const {patchReq} = req
 
-  knex('procedures').where('id', req.params.id).first().update(patchReq).returning('*').then(([data]) => {
+  knex('steps').where('id', req.params.id).first().update(patchReq).returning('*').then(([data]) => {
     res.status(200).json(data)
   }).catch(err => next(err))
 })
 
-/* DELETE specified monsters record */
+/* DELETE specified steps record */
 router.delete('/:id', validateUserID, (req, res, next) => {
-  knex('procedures').where('id', req.params.id).first().del().returning('*').then(([data]) => {
+  knex('steps').where('id', req.params.id).first().del().returning('*').then(([data]) => {
     console.log('deleted', data)
     res.status(200).json({deleted: data})
   })
