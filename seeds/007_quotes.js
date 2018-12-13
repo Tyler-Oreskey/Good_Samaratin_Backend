@@ -1,9 +1,9 @@
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('steps').del()
+  return knex('quotes').del()
     .then(function () {
       // Inserts seed entries
-      return knex('steps').insert([
+      return knex('quotes').insert([
         {
           id: 1,
           quote: 'Wherever the art of Medicine is loved, there is also a love of Humanity.',
@@ -26,6 +26,6 @@ exports.seed = function(knex, Promise) {
       })
       .then(function() {
          //Moves id column (PK) auto-incremented to correct value after inserts
-        return knex.raw(`SELECT setval('steps_id_seq', (SELECT MAX(id) FROM steps))`)
+        return knex.raw(`SELECT setval('quotes_id_seq', (SELECT MAX(id) FROM quotes))`)
     });
 };
