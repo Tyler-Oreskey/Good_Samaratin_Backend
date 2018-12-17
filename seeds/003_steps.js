@@ -5,8 +5,11 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('steps').insert([
-        {id: 1, key: 'pulse', step: 'Put hand on wrist'},
-        {id: 2, key: 'bleeding', step: 'Apply pressure'}
+        {id: 1, key: 'Call 911', step: 'Call the proper authorities to make sure help is on the way'},
+        {id: 2, key: 'Check for Breath', step: 'Put 2 fingers under nose to see if there is breath.'},
+        {id: 3, key: 'Check for External Injury', step: 'Make sure the patient is not bleeding'},
+        {id: 4, key: 'Place on Hard Surface', step: 'Put patient on back on hard surface.'},
+        {id: 5, key: 'Perform CPR', step: 'Being check compressions at 30 in a row, then mouth to mouth twice.'}
 
       ]);
 
