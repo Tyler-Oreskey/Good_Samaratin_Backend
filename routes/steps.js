@@ -36,7 +36,7 @@ const validatePostBody = (req, res, next) => {
 /* Uses joi to build a patch request */
 const buildPatchReq = (req, res, next) => {
   const patchSchema = Joi.object().keys({
-    emName: joi.string.required(),
+    emName: joi.string().required(),
     key: Joi.string().required(),
     step: Joi.string().required()
   })
