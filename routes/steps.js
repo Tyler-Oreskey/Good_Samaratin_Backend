@@ -79,7 +79,7 @@ router.get('/:id', validateUserID, (req, res, next) => {
 
 /* POST new steps record */
 router.post('/', validatePostBody, (req, res, next) => {
-  const {id, key, step} = req.body
+  const {id, emName, key, step} = req.body
 
   knex('steps').insert({id, key, step}).returning('*').then(([data]) => res.status(201).json(data)).catch(err => next(err))
 })
