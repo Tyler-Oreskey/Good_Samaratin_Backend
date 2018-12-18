@@ -20,6 +20,7 @@ const validateUserID = (req, res, next) => {
 /* Uses joi to validate data types */
 const validatePostBody = (req, res, next) => {
   const postSchema = Joi.object().keys({
+    emName: joi.string().required(),
     key: Joi.string().required(),
     step: Joi.string().required()
   })
@@ -35,6 +36,7 @@ const validatePostBody = (req, res, next) => {
 /* Uses joi to build a patch request */
 const buildPatchReq = (req, res, next) => {
   const patchSchema = Joi.object().keys({
+    emName: joi.string.required(),
     key: Joi.string().required(),
     step: Joi.string().required()
   })
@@ -44,7 +46,7 @@ const buildPatchReq = (req, res, next) => {
     return res.status(400).json({ "PATCH Schema Error": { message: error.details[0].message } })
   }
 
-  const allowedPatchKeys = [key, step]
+  const allowedPatchKeys = [emName, key, step]
 
   // Constructs the patch request object
   let patchReq = {}
