@@ -81,7 +81,7 @@ router.get('/:id', validateUserID, (req, res, next) => {
 router.post('/', validatePostBody, (req, res, next) => {
   const {id, emName, key, step} = req.body
 
-  knex('steps').insert({id, key, step}).returning('*').then(([data]) => res.status(201).json(data)).catch(err => next(err))
+  knex('steps').insert({id, emName, key, step}).returning('*').then(([data]) => res.status(201).json(data)).catch(err => next(err))
 })
 
 /* PATCH specified steps record */
